@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serdivan Roast & Bakery | Dijital Menü & Tanıtım</title>
+    <!-- Bootstrap 5 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --primary-color: #3e2723; /* Koyu Kahve */
+            --accent-color: #d87d4a;  /* Sıcak Karamel */
+            --bg-light: #faf8f5;
+        }
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c2c2c;
+        }
+        .navbar {
+            background-color: var(--primary-color);
+        }
+        .hero-section {
+            background: linear-gradient(rgba(30, 20, 15, 0.72), rgba(30, 20, 15, 0.72)),
+                        url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            color: white;
+            padding: 80px 0;
+        }
+        .filter-btn {
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 600;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            background: white;
+            transition: all 0.2s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .menu-card {
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            background: white;
+        }
+        .menu-card:hover {
+            transform: translateY(-3px);
+        }
+        .price-badge {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+        }
+        /* Sabit WhatsApp Butonu */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            padding: 12px 22px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .whatsapp-float:hover {
+            background-color: #1ebe5d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Menü -->
+    <nav class="navbar navbar-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-cup-hot-fill me-2 text-warning"></i>Serdivan Roast & Bakery
+            </a>
+            <a href="#iletisim" class="btn btn-outline-light btn-sm rounded-pill px-3">Konum & Saatler</a>
+        </div>
+    </nav>
+
+    <!-- Karşılama Alanı -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <span class="badge bg-warning text-dark mb-2 px-3 py-2 rounded-pill">Taze Kavrulmuş Kahve & Günlük Tatlılar</span>
+            <h1 class="display-5 fw-bold mt-2">Keyifli Bir Mola İçin Bekliyoruz</h1>
+            <p class="lead mb-4 text-light opacity-75">Masadaki QR kodu okutarak güncel menümüzü inceleyebilir veya WhatsApp üzerinden hızlı rezervasyon yapabilirsiniz.</p>
+            <a href="#menu" class="btn btn-lg px-4 rounded-pill fw-semibold text-white" style="background-color: var(--accent-color);">
+                Menüyü İncele <i class="bi bi-arrow-down-short"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Dijital QR Menü Bölümü -->
+    <section id="menu" class="py-5">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold" style="color: var(--primary-color);">Dijital Menümüz</h2>
+                <p class="text-muted">Kategori seçerek ürünleri filtreleyebilirsiniz</p>
+            </div>
+
+            <!-- Kategori Filtre Butonları -->
+            <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
+                <button class="filter-btn active" onclick="filterMenu('all', this)">Tümü</button>
+                <button class="filter-btn" onclick="filterMenu('kahve', this)">Sıcak Kahveler</button>
+                <button class="filter-btn" onclick="filterMenu('soguk', this)">Soğuk İçecekler</button>
+                <button class="filter-btn" onclick="filterMenu('tatli', this)">Tatlılar & Fırın</button>
+            </div>
+
+            <!-- Ürün Kartları -->
+            <div class="row g-3" id="menu-list">
+                <!-- Ürün 1 -->
+                <div class="col-md-6 menu-item" data-category="kahve">
+                    <div class="card menu-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="fw-bold mb-1">Flat White</h5>
+                                <p class="text-muted small mb-0">Çift shot espresso üzerine kadifemsi mikro köpüklü süt.</p>
+                            </div>
+                            <span class="price-badge">115 ₺</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ürün 2 -->
+                <div class="col-md-6 menu-item" data-category="kahve">
+                    <div class="card menu-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="fw-bold mb-1">Filtre Kahve (V60)</h5>
+                                <p class="text-muted small mb-0">Etiyopya Yirgacheffe çekirdeklerinden taze demleme.</p>
+                            </div>
+                            <span class="price-badge">95 ₺</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ürün 3 -->
+                <div class="col-md-6 menu-item" data-category="soguk">
+                    <div class="card menu-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="fw-bold mb-1">Iced Spanish Latte</h5>
+                                <p class="text-muted small mb-0">Buz, yoğunlaştırılmış süt ve çift shot espresso uyumu.</p>
+                            </div>
+                            <span class="price-badge">130 ₺</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ürün 4 -->
+                <div class="col-md-6 menu-item" data-category="soguk">
+                    <div class="card menu-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="fw-bold mb-1">Ev Yapımı Çilekli Limonata</h5>
+                                <p class="text-muted small mb-0">Taze sıkılmış limon ve doğal çilek püresi ile.</p>
+                            </div>
+                            <span class="price-badge">110 ₺</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ürün 5 -->
+                <div class="col-md-6 menu-item" data-category="tatli">
+                    <div class="card menu-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="fw-bold mb-1">San Sebastian Cheesecake</h5>
+                                <p class="text-muted small mb-0">Akışkan iç dokusu ve yanında Belçika çikolatası sosu ile.</p>
+                            </div>
+                            <span class="price-badge">165 ₺</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ürün 6 -->
+                <div class="col-md-6 menu-item" data-category="tatli">
+                    <div class="card menu-card p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="fw-bold mb-1">Tereyağlı Kruvasan</h5>
+                                <p class="text-muted small mb-0">Her sabah fırından taze çıkan 24 katmanlı çıtır kruvasan.</p>
+                            </div>
+                            <span class="price-badge">105 ₺</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim ve Mekan Bilgileri -->
+    <section id="iletisim" class="py-5 bg-white border-top">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6">
+                    <h3 class="fw-bold mb-3" style="color: var(--primary-color);">Mekan Bilgileri & Ulaşım</h3>
+                    <p class="text-muted">Arkadaşlarınızla ders çalışmak, keyifli sohbet etmek veya kahvenizi alıp çıkmak için merkezdeki şubemize bekleriz.</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-geo-alt-fill text-danger me-2"></i><strong>Adres:</strong> Bağlar Cad. No: 42, Serdivan / Sakarya</li>
+                        <li class="mb-2"><i class="bi bi-clock-fill text-primary me-2"></i><strong>Çalışma Saatleri:</strong> Her Gün 08:30 - 00:00</li>
+                        <li class="mb-2"><i class="bi bi-wifi text-success me-2"></i><strong>İmkanlar:</strong> Ücretsiz Yüksek Hızlı Wi-Fi & Prizli Masalar</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-4 rounded-4 text-center" style="background-color: var(--bg-light); border: 1px dashed #ccc;">
+                        <i class="bi bi-qr-code display-4 mb-2" style="color: var(--primary-color);"></i>
+                        <h5 class="fw-bold">Masadan Hızlı Erişim</h5>
+                        <p class="small text-muted mb-0">Bu sayfa tüm telefon ekranlarına tam uyumludur. Kağıt menü baskı maliyetine son!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alt Bilgi -->
+    <footer class="py-3 text-center text-white small" style="background-color: var(--primary-color);">
+        <div class="container">
+            © 2026 Serdivan Roast & Bakery - Tüm Hakları Saklıdır.
+        </div>
+    </footer>
+
+    <!-- Sabit WhatsApp Butonu -->
+    <a href="https://wa.me/905551234567?text=Merhaba,%20masa%20rezervasyonu%20/%20sipariş%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="whatsapp-float">
+        <i class="bi bi-whatsapp fs-5"></i>
+        <span>WhatsApp İletişim</span>
+    </a>
+
+    <!-- Kategori Filtreleme JavaScript Kodu -->
+    <script>
+        function filterMenu(category, clickedBtn) {
+            // Aktif buton rengini güncelle
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            clickedBtn.classList.add('active');
+
+            // Ürünleri göster/gizle
+            const items = document.querySelectorAll('.menu-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
